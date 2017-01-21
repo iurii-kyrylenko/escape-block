@@ -4,6 +4,6 @@ run with interpretator
 ```
   ghci
   Prelude> :l Main
-  Prelude> t1
-  length allStates1
+  Prelude> length allStates3
+  Prelude> display bt3
 ```
