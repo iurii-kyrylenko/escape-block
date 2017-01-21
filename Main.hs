@@ -31,9 +31,9 @@ board2 = [
 startState2 = [0,0,3,4,1,2,0,3,4,0]
 
 allStates1 = bfs (nextState board1) startState1      -- length allStates1 = 1799
-upToExit1 = takeWhile (\x -> x !! 1 /= 4) allStates1 -- length upToExit1  = 1721
+upToExit1 = takeWhile (\(x, _) -> x !! 1 /= 4) allStates1 -- length upToExit1  = 1721
 
 allStates2 = bfs (nextState board2) startState2      -- length upToExit2 = 27462
-upToExit2 = takeWhile (\x -> x !! 1 /= 4) allStates2 -- length upToExit2  = 3831
+upToExit2 = takeWhile (\(x, _) -> x !! 1 /= 4) allStates2 -- length upToExit2  = 3831
 
 
