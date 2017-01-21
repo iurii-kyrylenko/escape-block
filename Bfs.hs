@@ -1,5 +1,6 @@
 module Bfs(
-  bfs
+  bfs,
+  bfsBacktrack
 ) where
 
 {- http://aleph.nz/post/search_in_haskell/ -}
@@ -38,3 +39,16 @@ bfs_step neighbours (seen, queue)
       seen' = Set.union seen descendents
       queue' = remaining Seq.>< (Seq.fromList . map (\x -> (x, current)) . Set.toList) descendents
       descendents = Set.difference (Set.fromList $ neighbours current) seen
+
+bfsBacktrack :: (Hashable a, Eq a)
+  => (a -> [a])
+  -> (a -> Bool)
+  -> a
+  -> [a]
+bfsBacktrack adj end start =
+  -- TO DO: should be safe !
+  let (xs, y:ys) = break (\(x, _) -> end x) (bfs adj start)
+      search = y : reverse xs
+      bt []         = []
+      bt ((f,s):xs) = f : bt (snd (break (\(t,_) -> t == s) xs))
+  in (reverse . bt) search
