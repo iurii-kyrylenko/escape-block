@@ -53,4 +53,4 @@ bt2 = bfsBacktrack (nextState board2) (\x -> x !! 1 == 4) startState2
 bt3 = bfsBacktrack (nextState board3) (\x -> x !! 1 == 4) startState3
 
 display :: [State] -> IO ()
-display states = sequence_ . (fmap $ putStrLn . show) $ states
+display = sequence_ . fmap (putStrLn . show)
