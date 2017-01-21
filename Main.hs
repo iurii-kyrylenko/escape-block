@@ -1,56 +1,75 @@
 import State
 import Bfs
 
-board1 = [
-    H 2 1
-  , H 2 2
-  , H 3 3
-  , H 2 5
-  , H 2 5
-  , V 3 0
-  , V 2 2
-  , V 2 3
-  , V 3 4
-  , V 2 5
-  , V 2 5
-  ]
+board1 = [ -- ┌───┬───┬───┬───┬───┬───┐
+    H 2 1  -- │ 1 │   │   │ 3 │   │ 5 │
+  , H 2 2  -- ├───┼───┼───┼───┼───┼───┤
+  , H 3 3  -- │ 1 │ a │ a │ 3 │   │ 5 │
+  , H 2 5  -- ├───┼───┼───┼───┼───┼───┤
+  , H 2 5  -- │ 1 │   │ b │ b │ 4 │   │
+  , V 3 0  -- ├───┼───┼───┼───┼───┼───┤
+  , V 2 2  -- │ c │ c │ c │   │ 4 │ 6 │
+  , V 2 3  -- ├───┼───┼───┼───┼───┼───┤
+  , V 3 4  -- │   │   │ 2 │   │ 4 │ 6 │
+  , V 2 5  -- ├───┼───┼───┼───┼───┼───┤
+  , V 2 5  -- │ d │ d │ 2 │ e │ e │   │
+  ]        -- └───┴───┴───┴───┴───┴───┘
 startState1 = [1,2,0,0,3,0,4,0,2,0,3]
 
-board2 = [
-    H 2 1
-  , H 2 2
-  , H 2 3
-  , H 2 5
-  , V 2 0
-  , V 3 2
-  , V 3 3
-  , V 2 4
-  , V 3 5
-  ]
+board2 = [ -- ┌───┬───┬───┬───┬───┬───┐
+    H 2 1  -- │   │   │ 2 │   │   │ 5 │
+  , H 2 2  -- ├───┼───┼───┼───┼───┼───┤
+  , H 2 3  -- │ a │ a │ 2 │   │   │ 5 │
+  , H 2 5  -- ├───┼───┼───┼───┼───┼───┤
+  , V 2 0  -- │ 1 │   │ 2 │ b │ b │ 5 │
+  , V 3 2  -- ├───┼───┼───┼───┼───┼───┤
+  , V 3 3  -- │ 1 │   │   │ 3 │ c │ c │
+  , V 2 4  -- ├───┼───┼───┼───┼───┼───┤
+  , V 3 5  -- │   │ d │ d │ 3 │ 4 │   │
+  ]        -- ├───┼───┼───┼───┼───┼───┤
+           -- │   │   │   │ 3 │ 4 │   │
+           -- └───┴───┴───┴───┴───┴───┘
 startState2 = [0,3,4,1,2,0,3,4,0]
 
-board3 = [
-    H 2 0
-  , H 2 2
-  , H 2 3
-  , H 2 4
-  , H 2 5
-  , V 2 0
-  , V 2 1
-  , V 3 2
-  , V 2 3
-  , V 2 3
-  , V 3 5
-  ]
+board3 = [ -- ┌───┬───┬───┬───┬───┬───┐
+    H 2 0  -- │   │ a │ a │ 4 │   │ 6 │
+  , H 2 2  -- ├───┼───┼───┼───┼───┼───┤
+  , H 2 3  -- │ 1 │   │   │ 4 │   │ 6 │
+  , H 2 4  -- ├───┼───┼───┼───┼───┼───┤
+  , H 2 5  -- │ 1 │   │ 3 │ b │ b │ 6 │
+  , V 2 0  -- ├───┼───┼───┼───┼───┼───┤
+  , V 2 1  -- │   │ 2 │ 3 │ c │ c │   │
+  , V 3 2  -- ├───┼───┼───┼───┼───┼───┤
+  , V 2 3  -- │   │ 2 │ 3 │ 5 │ d │ d │
+  , V 2 3  -- ├───┼───┼───┼───┼───┼───┤
+  , V 3 5  -- │ e │ e │   │ 5 │   │   │
+  ]        -- └───┴───┴───┴───┴───┴───┘
 startState3 = [1,3,3,4,0,1,3,2,0,4,0]
+
+board4 = [ -- ┌───┬───┬───┬───┬───┬───┐
+    H 2 0  -- │   │   │ 2 │ a │ a │   │
+  , H 2 2  -- ├───┼───┼───┼───┼───┼───┤
+  , H 2 4  -- │   │   │ 2 │ 3 │   │ 4 │
+  , H 3 5  -- ├───┼───┼───┼───┼───┼───┤
+  , V 3 0  -- │ b │ b │ 2 │ 3 │   │ 4 │
+  , V 3 2  -- ├───┼───┼───┼───┼───┼───┤
+  , V 2 3  -- │ 1 │   │   │   │   │ 4 │
+  , V 3 5  -- ├───┼───┼───┼───┼───┼───┤
+  ]        -- │ 1 │   │ c │ c │   │   │
+           -- ├───┼───┼───┼───┼───┼───┤
+           -- │ 1 │   │ d │ d │ d │   │
+           -- └───┴───┴───┴───┴───┴───┘
+startState4 = [3,0,2,2,3,0,1,1]
 
 allStates1 = bfs (nextState board1) startState1 -- length allStates1 = 1799
 allStates2 = bfs (nextState board2) startState2 -- length allStates2 = 8859
 allStates3 = bfs (nextState board3) startState3 -- length allStates3 = 15651
+allStates4 = bfs (nextState board4) startState4 -- length allStates4 = 5297
 
-bt1 = bfsBacktrack (nextState board1) (\x -> x !! 1 == 4) startState1
-bt2 = bfsBacktrack (nextState board2) (\x -> x !! 1 == 4) startState2
-bt3 = bfsBacktrack (nextState board3) (\x -> x !! 1 == 4) startState3
+bt1 = bfsBacktrack (nextState board1) ((4 ==) . (!! 1)) startState1
+bt2 = bfsBacktrack (nextState board2) ((4 ==) . (!! 1)) startState2
+bt3 = bfsBacktrack (nextState board3) ((4 ==) . (!! 1)) startState3
+bt4 = bfsBacktrack (nextState board4) ((4 ==) . (!! 1)) startState4
 
 display :: [State] -> IO ()
 display = sequence_ . fmap (putStrLn . show)
