@@ -1,9 +1,10 @@
 ## Escape Block puzzle solver
 
-run with interpretator
+Run interactive:
 ```
+  cd src
   ghci
   Prelude> :l Main
-  Prelude> length allStates3
-  Prelude> display bt3
+  *Main> length allStates3
+  *Main> display bt3
 ```
