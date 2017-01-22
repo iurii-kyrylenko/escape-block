@@ -77,20 +77,48 @@ board5 = [ -- ┌───┬───┬───┬───┬───┬─
   ]
 startState5 = [1,1,0,3,0,1,4,0,2,4,0,2]
 
+board6 = [ -- ┌───┬───┬───┬───┬───┬───┐
+    H 2 0  -- │ 1 │ a │ a │   │ 4 │   │
+  , H 3 1  -- ├───┼───┼───┼───┼───┼───┤
+  , H 2 2  -- │ 1 │ b │ b │ b │ 4 │   │
+  , H 2 3  -- ├───┼───┼───┼───┼───┼───┤
+  , H 3 4  -- │ c │ c │ 2 │   │ 4 │   │
+  , H 2 5  -- ├───┼───┼───┼───┼───┼───┤
+  , H 2 5  -- │   │   │ 2 │ d │ d │ 5 │
+  , V 2 0  -- ├───┼───┼───┼───┼───┼───┤
+  , V 2 2  -- │ e │ e │ e │ 3 │   │ 5 │
+  , V 2 3  -- ├───┼───┼───┼───┼───┼───┤
+  , V 3 4  -- │ f │ f │   │ 3 │ g │ g │
+  , V 2 5  -- └───┴───┴───┴───┴───┴───┘
+  ]
+startState6 = [1,1,0,3,0,0,4,0,2,4,0,3]
 
 allStates1 = bfs (nextState board1) startState1 -- length allStates1 = 1799
 allStates2 = bfs (nextState board2) startState2 -- length allStates2 = 8859
 allStates3 = bfs (nextState board3) startState3 -- length allStates3 = 15651
 allStates4 = bfs (nextState board4) startState4 -- length allStates4 = 5297
 allStates5 = bfs (nextState board5) startState5 -- length allStates5 = 6761
+allStates6 = bfs (nextState board6) startState5 -- length allStates6 = 10636
 
-bt1 = bfsBacktrack (nextState board1) ((4 ==) . (!! 1)) startState1
-bt2 = bfsBacktrack (nextState board2) ((4 ==) . (!! 1)) startState2
-bt3 = bfsBacktrack (nextState board3) ((4 ==) . (!! 1)) startState3
-bt4 = bfsBacktrack (nextState board4) ((4 ==) . (!! 1)) startState4
-bt5 = bfsBacktrack (nextState board5) ((4 ==) . (!! 2)) startState5
+bt1 = bfsBacktrack (nextState board1) ((4 ==) . (!! 1)) startState1 -- length bt1 = 17
+bt2 = bfsBacktrack (nextState board2) ((4 ==) . (!! 1)) startState2 -- length bt2 = 28
+bt3 = bfsBacktrack (nextState board3) ((4 ==) . (!! 1)) startState3 -- length bt3 = 19
+bt4 = bfsBacktrack (nextState board4) ((4 ==) . (!! 1)) startState4 -- length bt4 = 11
+bt5 = bfsBacktrack (nextState board5) ((4 ==) . (!! 2)) startState5 -- length bt5 = 27
+bt6 = bfsBacktrack (nextState board6) ((4 ==) . (!! 2)) startState6 -- length bt6 = 26
 
 display :: [State] -> IO ()
 display = sequence_ . fmap (putStrLn . show)
 
--- display bt3
+-- > display bt4
+-- [3,0,2,2,3,0,1,1]
+-- [3,0,2,3,3,0,1,1]
+-- [4,0,2,3,3,0,1,1]
+-- [4,0,3,3,3,0,1,1]
+-- [4,0,3,3,3,3,1,1]
+-- [4,0,3,3,3,3,0,1]
+-- [4,3,3,3,3,3,0,1]
+-- [4,3,3,3,3,0,0,1]
+-- [4,3,3,1,3,0,0,1]
+-- [4,3,3,1,3,0,0,3]
+-- [4,4,3,1,3,0,0,3]
